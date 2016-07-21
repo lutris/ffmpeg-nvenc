@@ -217,6 +217,23 @@ EOF
     fi
 }
 
+MakeLauncher() {
+    cat <<EOF > ~/.local/share/applications/obs.desktop
+[Desktop Entry]
+Version=1.0
+Name=OBS Studio
+Comment=OBS Studio (NVenc enabled)
+Categories=Video;
+Exec=${build_dir}/scripts/obs.sh %U
+Icon=obs
+Terminal=false
+Type=Application
+EOF
+    mkdir -p ~/.icons
+    cp ${root_dir}/media/obs.png ~/.icons
+    gtk-update-icon-cache -t ~/.icons
+}
+
 if [ $1 ]; then
     $1
 else
@@ -231,6 +248,7 @@ else
     BuildFFmpeg
     if [ "$build_obs" ]; then
         BuildOBS
+        MakeLauncher
     fi
     MakeScripts
 fi
