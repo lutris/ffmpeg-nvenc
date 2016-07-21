@@ -4,6 +4,10 @@
 # nvenc on ubuntu. See the prefix path and compile options if edits are needed
 # to suit your needs.
 
+#Authors:
+#   Linux GameCast ( http://linuxgamecast.com/ )
+#   Mathieu Comandon <strider@strycore.com>
+
 set -e
 
 root_dir="$(pwd)"
