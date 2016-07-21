@@ -52,7 +52,7 @@ InstallDependencies() {
 }
 
 InstallNvidiaSDK() {
-    echo "Installing the nVidia NVENC SDK"
+    echo "Installing the NVidia Video SDK"
     sdk_version="6.0.1"
     sdk_basename="nvidia_video_sdk_${sdk_version}"
     sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
@@ -173,6 +173,15 @@ BuildFFmpeg() {
     make distclean
 }
 
+BuildOBS() {
+    cd $source_dir
+    git clone https://github.com/jp9000/obs-studio.git
+    cd obs-studio
+    mkdir build && cd build
+    cmake -DUNIX_STRUCTURE=0 -DCMAKE_INSTALL_PREFIX=$build_dir ..
+    make
+    make install
+}
 
 if [ $1 ]; then
     $1
