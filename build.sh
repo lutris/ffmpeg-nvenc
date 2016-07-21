@@ -176,9 +176,15 @@ BuildFFmpeg() {
 BuildOBS() {
     cd $source_dir
     export FFmpegPath="${source_dir}/ffmpeg"
-    git clone https://github.com/jp9000/obs-studio.git
-    cd obs-studio
-    mkdir build && cd build
+    if [ -d obs-studio ]; then
+        cd obs-studio
+        git pull
+    else
+        git clone https://github.com/jp9000/obs-studio.git
+        cd obs-studio
+    fi
+    mkdir -p build
+    cd build
     cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=$build_dir ..
     make
     make install
