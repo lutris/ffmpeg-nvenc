@@ -23,6 +23,11 @@ The following command line options are available:
 * -o / --obs : Build OBS Studio
 * -h / --help : Usage
 
+## TODO
+
+* Add support for multiple distributions (currently only tested on Ubuntu 16.04)
+
 ## Supporting the authors
 
-If you find this script useful, you can consider [supporting Linux GameCast](https://www.patreon.com/linuxgamecast)
+If you find this script useful, you can consider
+[supporting Linux GameCast](https://www.patreon.com/linuxgamecast).
