@@ -75,7 +75,6 @@ BuildYasm() {
     ./configure --prefix="${build_dir}" --bindir="${bin_dir}"
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildX264() {
@@ -87,7 +86,6 @@ BuildX264() {
     ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-static
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildFdkAac() {
@@ -100,7 +98,6 @@ BuildFdkAac() {
     ./configure --prefix="$build_dir" --disable-shared
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildLame() {
@@ -114,7 +111,6 @@ BuildLame() {
     ./configure --prefix="$build_dir" --enable-nasm --disable-shared
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildOpus() {
@@ -128,7 +124,6 @@ BuildOpus() {
     ./configure --prefix="$build_dir" --disable-shared
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildVpx() {
@@ -143,7 +138,6 @@ BuildVpx() {
     ./configure --prefix="$build_dir" --disable-examples
     make -j${cpus}
     make install
-    # make clean
 }
 
 BuildFFmpeg() {
@@ -171,7 +165,6 @@ BuildFFmpeg() {
         --enable-nvenc
     make -j${cpus}
     make install
-    # make distclean
 }
 
 BuildOBS() {
