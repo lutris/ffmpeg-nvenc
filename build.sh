@@ -10,7 +10,7 @@
 
 set -e
 
-root_dir="$(pwd)"
+root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source_dir="${root_dir}/source"
 mkdir -p $source_dir
