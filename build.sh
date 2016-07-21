@@ -143,7 +143,9 @@ BuildVpx() {
 BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
-    wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+    if [ ! -f  ffmpeg-snapshot.tar.bz2 ]; then
+        wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+    fi
     tar xjf ffmpeg-snapshot.tar.bz2
     cd ffmpeg
     PKG_CONFIG_PATH="${build_dir}/lib/pkgconfig" ./configure \
