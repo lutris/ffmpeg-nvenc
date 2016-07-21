@@ -12,7 +12,7 @@ source_dir="${root_dir}/source"
 mkdir -p $source_dir
 build_dir="${root_dir}/build"
 mkdir -p $build_dir
-bin_dir="${root_dir}/bin"
+bin_dir="${build_dir}/bin"
 mkdir -p $bin_dir
 inc_dir="${build_dir}/include"
 mkdir -p $inc_dir
