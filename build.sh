@@ -14,7 +14,7 @@ root_dir="$(pwd)"
 
 source_dir="${root_dir}/source"
 mkdir -p $source_dir
-build_dir="${root_dir}/build"
+build_dir="${root_dir}/ffmpeg-nvenc"
 mkdir -p $build_dir
 bin_dir="${build_dir}/bin"
 mkdir -p $bin_dir
