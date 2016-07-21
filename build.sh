@@ -10,16 +10,36 @@
 
 set -e
 
+ShowUsage() {
+    echo "Usage: ./build.sh [--dest /path/to/ffmpeg] [--help]"
+    echo "Options:"
+    echo "  -d/--dest: Where to build ffmpeg (Optional, defaults to ./ffmpeg-nvenc)"
+    echo "  -h/--help: This help screen"
+    exit 0
+}
+
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+params=$(getopt -n $0 -o d:h --long dest:,help -- "$@")
+eval set -- $params
+while true ; do
+    case "$1" in
+        -h|--help) ShowUsage ;;
+        -d|--dest) build_dir=$2; shift 2;;
+        *) shift; break ;;
+    esac
+done
 
 source_dir="${root_dir}/source"
 mkdir -p $source_dir
-build_dir="${root_dir}/ffmpeg-nvenc"
+build_dir="${build_dir:-"${root_dir}/ffmpeg-nvenc"}"
 mkdir -p $build_dir
 bin_dir="${build_dir}/bin"
 mkdir -p $bin_dir
 inc_dir="${build_dir}/include"
 mkdir -p $inc_dir
+
+echo "Building FFmpeg in ${build_dir}"
 
 export PATH=$bin_dir:$PATH
 
