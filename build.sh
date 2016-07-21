@@ -58,7 +58,7 @@ InstallNvidiaSDK() {
     sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
     cd $source_dir
     wget $sdk_url
-    unzip "$sdk_basename.zip"
+    unzip "${sdk_basename}.zip"
     cd $sdk_basename
     cp -a Samples/common/inc/* $inc_dir
 }
@@ -74,7 +74,7 @@ BuildYasm() {
     ./configure --prefix="${build_dir}" --bindir="${bin_dir}"
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildX264() {
@@ -86,7 +86,7 @@ BuildX264() {
     ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-static
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildFdkcc() {
@@ -99,7 +99,7 @@ BuildFdkcc() {
     ./configure --prefix="$build_dir" --disable-shared
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildLame() {
@@ -113,7 +113,7 @@ BuildLame() {
     ./configure --prefix="$build_dir" --enable-nasm --disable-shared
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildOpus() {
@@ -127,7 +127,7 @@ BuildOpus() {
     ./configure --prefix="$build_dir" --disable-shared
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildVpx() {
@@ -142,7 +142,7 @@ BuildVpx() {
     ./configure --prefix="$build_dir" --disable-examples
     make
     make install
-    make clean
+    # make clean
 }
 
 BuildFFmpeg() {
@@ -153,8 +153,8 @@ BuildFFmpeg() {
     cd ffmpeg
     PKG_CONFIG_PATH="${build_dir}/lib/pkgconfig" ./configure \
         --prefix="$build_dir" \
-        --extra-cflags="-I$inc_dir" \
-        --extra-ldflags="-L$build_dir/lib" \
+        --extra-cflags="-I${inc_dir}" \
+        --extra-ldflags="-L${build_dir}/lib" \
         --bindir="$bin_dir" \
         --enable-gpl \
         --enable-libass \
