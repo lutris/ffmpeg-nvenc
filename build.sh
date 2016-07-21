@@ -190,9 +190,31 @@ BuildOBS() {
     make install
 }
 
-Clean() {
+CleanAll() {
     rm -rf $source_dir
-    rm -rf $build_dir
+}
+
+MakeScripts() {
+    cd $build_dir
+    mkdir -p scripts
+    cd scripts
+    cat <<EOF > ffmpeg.sh
+#!/bin/bash
+export LD_LIBRARY_PATH="${build_dir}/lib":\$LD_LIBRARY_PATH
+cd "${build_dir}/bin"
+./ffmpeg "\$@"
+EOF
+    chmod +x ffmpeg.sh
+
+    if [ "$build_obs" ]; then
+        cat <<EOF > obs.sh
+#!/bin/bash
+export LD_LIBRARY_PATH="${build_dir}/lib":\$LD_LIBRARY_PATH
+cd "${build_dir}/bin"
+./obs "\$@"
+EOF
+        chmod +x obs.sh
+    fi
 }
 
 if [ $1 ]; then
@@ -210,4 +232,5 @@ else
     if [ "$build_obs" ]; then
         BuildOBS
     fi
+    MakeScripts
 fi
