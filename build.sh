@@ -109,9 +109,10 @@ BuildOpus() {
 BuildVpx() {
     echo "Compiling libvpx"
     cd $source_dir
-    vpx_version="1.3.0"
-    vpx_basename="libvpx-v${vpx_version}"
-    wget http://webm.googlecode.com/files/${vpx_basename}.tar.bz2
+    vpx_version="1.5.0"
+    vpx_basename="libvpx-${vpx_version}"
+    vpx_url="http://storage.googleapis.com/downloads.webmproject.org/releases/webm/${vpx_basename}.tar.bz2"
+    wget $vpx_url
     tar xjf "${vpx_basename}.tar.bz2"
     cd $vpx_basename
     ./configure --prefix="$build_dir" --disable-examples
