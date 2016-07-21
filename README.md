@@ -5,7 +5,7 @@ It can also build OBS Studio using that FFmpeg build thus providing NVENC for
 OBS as well.
 
 It is brought to you by [Linux GameCast](http://linuxgamecast.com/) and
-[Lutris](https://lutris.net)
+[Lutris](https://lutris.net) #lgccares
 
 ## Usage
 
