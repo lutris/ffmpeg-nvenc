@@ -30,6 +30,7 @@ while true ; do
     esac
 done
 
+cpus=$(getconf _NPROCESSORS_ONLN)
 source_dir="${root_dir}/source"
 mkdir -p $source_dir
 build_dir="${build_dir:-"${root_dir}/ffmpeg-nvenc"}"
@@ -72,7 +73,7 @@ BuildYasm() {
     tar xzf "${yasm_basename}.tar.gz"
     cd $yasm_basename
     ./configure --prefix="${build_dir}" --bindir="${bin_dir}"
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -84,7 +85,7 @@ BuildX264() {
     tar xjf last_x264.tar.bz2
     cd x264-snapshot*
     ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-static
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -97,7 +98,7 @@ BuildFdkAac() {
     cd mstorsjo-fdk-aac*
     autoreconf -fiv
     ./configure --prefix="$build_dir" --disable-shared
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -111,7 +112,7 @@ BuildLame() {
     tar xzf "${lame_basename}.tar.gz"
     cd $lame_basename
     ./configure --prefix="$build_dir" --enable-nasm --disable-shared
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -125,7 +126,7 @@ BuildOpus() {
     tar xzf "${opus_basename}.tar.gz"
     cd $opus_basename
     ./configure --prefix="$build_dir" --disable-shared
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -140,7 +141,7 @@ BuildVpx() {
     tar xjf "${vpx_basename}.tar.bz2"
     cd $vpx_basename
     ./configure --prefix="$build_dir" --disable-examples
-    make
+    make -j${cpus}
     make install
     # make clean
 }
@@ -168,7 +169,7 @@ BuildFFmpeg() {
         --enable-libx264 \
         --enable-nonfree \
         --enable-nvenc
-    make
+    make -j${cpus}
     make install
     # make distclean
 }
@@ -186,7 +187,7 @@ BuildOBS() {
     mkdir -p build
     cd build
     cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=$build_dir ..
-    make
+    make -j${cpus}
     make install
 }
 
