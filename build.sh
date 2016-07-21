@@ -11,9 +11,10 @@
 set -e
 
 ShowUsage() {
-    echo "Usage: ./build.sh [--dest /path/to/ffmpeg] [--help]"
+    echo "Usage: ./build.sh [--dest /path/to/ffmpeg] [--obs] [--help]"
     echo "Options:"
     echo "  -d/--dest: Where to build ffmpeg (Optional, defaults to ./ffmpeg-nvenc)"
+    echo "  -o/--obs:  Build OBS Studio"
     echo "  -h/--help: This help screen"
     exit 0
 }
