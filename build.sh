@@ -89,8 +89,8 @@ BuildX264() {
     # make distclean
 }
 
-BuildFdkcc() {
-    echo "Compiling libfdk-cc"
+BuildFdkAac() {
+    echo "Compiling libfdk-aac"
     cd $source_dir
     wget -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
     unzip fdk-aac.zip
@@ -197,7 +197,7 @@ else
     InstallNvidiaSDK
     BuildYasm
     BuildX264
-    BuildFdkcc
+    BuildFdkAac
     BuildLame
     BuildOpus
     BuildVpx
