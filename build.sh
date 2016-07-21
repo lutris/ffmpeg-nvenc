@@ -20,11 +20,12 @@ ShowUsage() {
 
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-params=$(getopt -n $0 -o d:h --long dest:,help -- "$@")
+params=$(getopt -n $0 -o d:oh --long dest:,obs,help -- "$@")
 eval set -- $params
 while true ; do
     case "$1" in
         -h|--help) ShowUsage ;;
+        -o|--obs) build_obs=1; shift ;;
         -d|--dest) build_dir=$2; shift 2;;
         *) shift; break ;;
     esac
@@ -206,4 +207,7 @@ else
     BuildOpus
     BuildVpx
     BuildFFmpeg
+    if [ "$build_obs" ]; then
+        BuildOBS
+    fi
 fi
