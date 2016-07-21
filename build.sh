@@ -106,7 +106,7 @@ BuildLibOpus() {
     make distclean
 }
 
-BuildLibPvx(){
+BuildLibPvx() {
     echo "Compiling libvpx"
     cd $source_dir
     vpx_version="1.3.0"
@@ -120,7 +120,7 @@ BuildLibPvx(){
     make clean
 }
 
-BuildFFmpeg(){
+BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
     wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
@@ -148,12 +148,17 @@ BuildFFmpeg(){
     make distclean
 }
 
-InstallDependencies
-InstallNvidiaSDK
-BuildYasm
-BuildX264
-BuildLibfdkcc
-BuildLibMP3Lame
-BuildLibOpus
-BuildLibPvx
-BuildFFmpeg
+
+if [ $1 ]; then
+    $1
+else
+    InstallDependencies
+    InstallNvidiaSDK
+    BuildYasm
+    BuildX264
+    BuildLibfdkcc
+    BuildLibMP3Lame
+    BuildLibOpus
+    BuildLibPvx
+    BuildFFmpeg
+fi
