@@ -83,7 +83,7 @@ BuildX264() {
     wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
     tar xjf last_x264.tar.bz2
     cd x264-snapshot*
-    ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-static
+    ./configure --prefix="$build_dir" --bindir="$bin_dir" # --enable-static
     make -j${cpus}
     make install
 }
@@ -95,7 +95,7 @@ BuildFdkAac() {
     unzip fdk-aac.zip
     cd mstorsjo-fdk-aac*
     autoreconf -fiv
-    ./configure --prefix="$build_dir" --disable-shared
+    ./configure --prefix="$build_dir" # --disable-shared
     make -j${cpus}
     make install
 }
@@ -108,7 +108,7 @@ BuildLame() {
     wget "http://downloads.sourceforge.net/project/lame/lame/3.99/${lame_basename}.tar.gz"
     tar xzf "${lame_basename}.tar.gz"
     cd $lame_basename
-    ./configure --prefix="$build_dir" --enable-nasm --disable-shared
+    ./configure --prefix="$build_dir" --enable-nasm # --disable-shared
     make -j${cpus}
     make install
 }
@@ -121,7 +121,7 @@ BuildOpus() {
     wget "http://downloads.xiph.org/releases/opus/${opus_basename}.tar.gz"
     tar xzf "${opus_basename}.tar.gz"
     cd $opus_basename
-    ./configure --prefix="$build_dir" --disable-shared
+    ./configure --prefix="$build_dir" # --disable-shared
     make -j${cpus}
     make install
 }
@@ -162,7 +162,9 @@ BuildFFmpeg() {
         --enable-libvpx \
         --enable-libx264 \
         --enable-nonfree \
-        --enable-nvenc
+        --enable-nvenc \
+        --enable-shared \
+        --enable-pic
     make -j${cpus}
     make install
 }
