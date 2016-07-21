@@ -65,7 +65,7 @@ BuildX264() {
     make distclean
 }
 
-BuildLibfdkcc() {
+BuildFdkcc() {
     echo "Compiling libfdk-cc"
     cd $source_dir
     wget -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
@@ -78,7 +78,7 @@ BuildLibfdkcc() {
     make distclean
 }
 
-BuildLibMP3Lame() {
+BuildLame() {
     echo "Compiling libmp3lame"
     cd $source_dir
     lame_version="3.99.5"
@@ -92,7 +92,7 @@ BuildLibMP3Lame() {
     make distclean
 }
 
-BuildLibOpus() {
+BuildOpus() {
     echo "Compiling libopus"
     cd $source_dir
     opus_version="1.1"
@@ -106,7 +106,7 @@ BuildLibOpus() {
     make distclean
 }
 
-BuildLibPvx() {
+BuildVpx() {
     echo "Compiling libvpx"
     cd $source_dir
     vpx_version="1.3.0"
@@ -156,9 +156,9 @@ else
     InstallNvidiaSDK
     BuildYasm
     BuildX264
-    BuildLibfdkcc
-    BuildLibMP3Lame
-    BuildLibOpus
-    BuildLibPvx
+    BuildFdkcc
+    BuildLame
+    BuildOpus
+    BuildVpx
     BuildFFmpeg
 fi
