@@ -191,6 +191,11 @@ BuildOBS() {
     make install
 }
 
+Clean() {
+    rm -rf $source_dir
+    rm -rf $build_dir
+}
+
 if [ $1 ]; then
     $1
 else
