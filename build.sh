@@ -135,7 +135,7 @@ BuildVpx() {
     wget $vpx_url
     tar xjf "${vpx_basename}.tar.bz2"
     cd $vpx_basename
-    ./configure --prefix="$build_dir" --disable-examples
+    ./configure --prefix="$build_dir" --disable-examples --enable-shared --disable-static
     make -j${cpus}
     make install
 }
@@ -150,7 +150,7 @@ BuildFFmpeg() {
     cd ffmpeg
     PKG_CONFIG_PATH="${build_dir}/lib/pkgconfig" ./configure \
         --prefix="$build_dir" \
-        --extra-cflags="-I${inc_dir}" \
+        --extra-cflags="-fPIC -m64 -I${inc_dir}" \
         --extra-ldflags="-L${build_dir}/lib" \
         --bindir="$bin_dir" \
         --enable-gpl \
@@ -165,8 +165,9 @@ BuildFFmpeg() {
         --enable-libx264 \
         --enable-nonfree \
         --enable-nvenc \
-        --enable-shared \
-        --enable-pic
+        --enable-pic \
+        --extra-ldexeflags=-pie \
+        --enable-shared
     make -j${cpus}
     make install
 }
