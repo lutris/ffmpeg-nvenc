@@ -170,15 +170,16 @@ BuildFFmpeg() {
         --enable-nvenc
     make
     make install
-    make distclean
+    # make distclean
 }
 
 BuildOBS() {
     cd $source_dir
+    export FFmpegPath="${source_dir}/ffmpeg"
     git clone https://github.com/jp9000/obs-studio.git
     cd obs-studio
     mkdir build && cd build
-    cmake -DUNIX_STRUCTURE=0 -DCMAKE_INSTALL_PREFIX=$build_dir ..
+    cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=$build_dir ..
     make
     make install
 }
