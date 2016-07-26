@@ -146,11 +146,12 @@ BuildVpx() {
 BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
-    if [ ! -f  ffmpeg-snapshot.tar.bz2 ]; then
-        wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+    ffmpeg_version="3.1"
+    if [ ! -f  ffmpeg-${ffmpeg_version}.tar.bz2 ]; then
+        wget http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
     fi
-    tar xjf ffmpeg-snapshot.tar.bz2
-    cd ffmpeg
+    tar xjf ffmpeg-${ffmpeg_version}.tar.bz2
+    cd ffmpeg-${ffmpeg_version}
     PKG_CONFIG_PATH="${build_dir}/lib/pkgconfig" ./configure \
         --prefix="$build_dir" \
         --extra-cflags="-fPIC -m64 -I${inc_dir}" \
