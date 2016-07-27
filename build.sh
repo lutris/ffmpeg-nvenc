@@ -52,7 +52,7 @@ InstallDependencies() {
         libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev \
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
-        pkg-config texi2html zlib1g-dev nasm
+        pkg-config texi2html zlib1g-dev nasm cmake
 }
 
 InstallNvidiaSDK() {
