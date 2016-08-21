@@ -53,7 +53,8 @@ InstallDependencies() {
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
         pkg-config texi2html zlib1g-dev nasm cmake libcurl4-openssl-dev \
-        x11proto-composite-dev libjack-jackd2-dev libxcomposite-dev x11proto-composite-dev
+        x11proto-composite-dev libjack-jackd2-dev libxcomposite-dev x11proto-composite-dev \
+        libx264-dev
 }
 
 InstallNvidiaSDK() {
