@@ -22,7 +22,7 @@ ShowUsage() {
 
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-params=$(getopt -n $0 -o d:oh --long dest:,obs,help -- "$@")
+params=$(getopt -n $0 -o d:soh --long dest:,ssr,obs,help -- "$@")
 eval set -- $params
 while true ; do
     case "$1" in
