@@ -172,6 +172,7 @@ BuildFFmpeg() {
         --enable-nonfree \
         --enable-nvenc \
         --enable-pic \
+        --enable-x11grab \
         --extra-ldexeflags=-pie \
         --enable-shared
     make -j${cpus}
