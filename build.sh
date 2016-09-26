@@ -15,18 +15,20 @@ ShowUsage() {
     echo "Options:"
     echo "  -d/--dest: Where to build ffmpeg (Optional, defaults to ./ffmpeg-nvenc)"
     echo "  -o/--obs:  Build OBS Studio"
+    echo "  -s/--ssr:  Build Simple Screen Recorder"
     echo "  -h/--help: This help screen"
     exit 0
 }
 
 root_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-params=$(getopt -n $0 -o d:oh --long dest:,obs,help -- "$@")
+params=$(getopt -n $0 -o d:soh --long dest:,ssr,obs,help -- "$@")
 eval set -- $params
 while true ; do
     case "$1" in
         -h|--help) ShowUsage ;;
         -o|--obs) build_obs=1; shift ;;
+        -s|--ssr) build_ssr=1; shift ;;
         -d|--dest) build_dir=$2; shift 2;;
         *) shift; break ;;
     esac
@@ -53,8 +55,10 @@ InstallDependencies() {
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
         pkg-config texi2html zlib1g-dev nasm cmake libcurl4-openssl-dev \
-        x11proto-composite-dev libjack-jackd2-dev libxcomposite-dev \
-        libx264-dev
+        libjack-jackd2-dev libxcomposite-dev x11proto-composite-dev \
+        libx264-dev libgl1-mesa-dev libglu1-mesa-dev libasound2-dev \
+        libpulse-dev libjack-dev libx11-dev libxext-dev libxfixes-dev \
+        libxi-dev qt5-default qttools5-dev qt5-qmake
 }
 
 # TODO Detect running system
@@ -206,6 +210,26 @@ BuildOBS() {
     make install
 }
 
+BuildSSR() {
+    cd $source_dir
+    export FFmpegPath="${source_dir}/ffmpeg"
+    if [ -d ssr ]; then
+        cd ssr
+        git pull
+    else
+        git clone https://github.com/MaartenBaert/ssr.git
+        cd ssr
+    fi
+    mkdir -p build
+    cd build
+    PKG_CONFIG_PATH="${build_dir}/lib/pkgconfig" ./configure \
+       --prefix="$build_dir" \
+       --disable-assert
+       --with-qt5
+    make -j${cpus}
+    make install
+}
+
 CleanAll() {
     rm -rf $source_dir
 }
@@ -231,9 +255,19 @@ cd "${build_dir}/bin"
 EOF
         chmod +x obs.sh
     fi
+
+    if [ "$build_ssr" ]; then
+        cat <<EOF > ssr.sh
+#!/bin/bash
+export LD_LIBRARY_PATH="${build_dir}/lib":\$LD_LIBRARY_PATH
+cd "${build_dir}/bin"
+./simplescreenrecorder "\$@"
+EOF
+        chmod +x ssr,sh
+    fi
 }
 
-MakeLauncher() {
+MakeLauncherOBS() {
     cat <<EOF > ~/.local/share/applications/obs.desktop
 [Desktop Entry]
 Version=1.0
@@ -247,6 +281,23 @@ Type=Application
 EOF
     mkdir -p ~/.icons
     cp ${root_dir}/media/obs.png ~/.icons
+    gtk-update-icon-cache -t ~/.icons
+}
+
+MakeLauncherSSR() {
+cat <<EOF > ~/.local/share/applications/ssr.desktop
+[Desktop Entry]
+Version=1.0
+Name=Simple Screen Recorder
+Comment=Simple Screen Recorder (NVenc enabled)
+Categories=Video;
+Exec=${build_dir}/scripts/ssr.sh %U
+Icon=ssr
+Terminal=false
+Type=Application
+EOF
+    mkdir -p ~/.icons
+    cp ${root_dir}/media/ssr.png ~/.icons
     gtk-update-icon-cache -t ~/.icons
 }
 
@@ -264,7 +315,12 @@ else
     BuildFFmpeg
     if [ "$build_obs" ]; then
         BuildOBS
-        MakeLauncher
+        MakeLauncherOBS
+    fi
+
+    if [ "$build_ssr" ]; then
+        BuildSSR
+        MakeLauncherSSR
     fi
     MakeScripts
 fi
