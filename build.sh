@@ -57,6 +57,16 @@ InstallDependencies() {
         libx264-dev
 }
 
+# TODO Detect running system
+InstallDependenciesOpenSUSE() {
+   echo "Installing dependencies"
+   sudo zypper in -y autoconf automake libass-devel libfreetype6 libgpac-devel \
+       libSDL-devel libtheora-devel libtool libva-devel libvdpau-devel libvorbis-devel \
+       libxcb-devel pkg-config libxcb-shm0 libvlc5 vlc-devel xcb-util-devel \
+       libv4l-devel v4l-utils-devel-tools texi2html zlib-devel nasm cmake \
+       libcurl-devel libfdk-aac1
+}
+
 InstallNvidiaSDK() {
     echo "Installing the NVidia Video SDK"
     sdk_version="6.0.1"
