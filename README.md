@@ -31,4 +31,5 @@ The following command line options are available:
 ## Supporting the authors
 
 If you find this script useful, you can consider
-[supporting Linux GameCast](https://www.patreon.com/linuxgamecast).
+supporting [Linux GameCast](https://www.patreon.com/linuxgamecast)
+and [Lutris](https://www.patreon.com/lutris).
