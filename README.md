@@ -14,7 +14,7 @@ Clone the repo then use the `build.sh` script to compile the binaries
 ```
 git clone https://github.com/lutris/ffmpeg-nvenc.git
 cd ffmpeg-nvenc
-./build.sh --dest /home/user/apps/ffmpeg-nvenc
+./build.sh --dest $HOME/apps/ffmpeg-nvenc
 ```
 
 The following command line options are available:
