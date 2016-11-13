@@ -2,7 +2,7 @@
 
 This script will compile FFmpeg with Nvidia NVENC support enabled.
 It can also build OBS Studio or Simple Screen Recorder using that FFmpeg build
-thus providing NVENC for OBS and SSR.
+thus providing NVENC for OBS.
 
 It is brought to you by [Linux GameCast](http://linuxgamecast.com/) and
 [Lutris](https://lutris.net) #lgccares
@@ -21,7 +21,6 @@ The following command line options are available:
 
 * -d / --dest <path> : Destination path for FFmpeg / OBS
 * -o / --obs : Build OBS Studio
-* -s / --ssr : Build Simple Screen Recorder
 * -h / --help : Usage
 
 ## TODO
