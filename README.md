@@ -12,9 +12,11 @@ It is brought to you by [Linux GameCast](http://linuxgamecast.com/) and
 Clone the repo then use the `build.sh` script to compile the binaries
 
 ```
-git clone https://github.com/lutris/ffmpeg-nvenc.git
+sudo su
+cd /root/
+git clone https://github.com/jniltinho/ffmpeg-nvenc.git
 cd ffmpeg-nvenc
-./build.sh --dest $HOME/apps/ffmpeg-nvenc
+./build.sh --dest /opt/ffmpeg-nvenc --obs
 ```
 
 The following command line options are available:

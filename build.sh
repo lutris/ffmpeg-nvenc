@@ -48,7 +48,7 @@ export PATH=$bin_dir:$PATH
 
 InstallDependencies() {
     echo "Installing dependencies"
-    sudo apt-get -y --force-yes install autoconf automake build-essential libass-dev \
+    sudo apt-get -y --force-yes install unzip autoconf automake build-essential libass-dev \
         libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev \
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
@@ -71,14 +71,13 @@ InstallDependenciesOpenSUSE() {
 
 InstallNvidiaSDK() {
     echo "Installing the NVidia Video SDK"
-    sdk_version="6.0.1"
+    sdk_version="7.0.1"
     sdk_basename="nvidia_video_sdk_${sdk_version}"
-    sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
+    sdk_url="https://github.com/jniltinho/oficinadotux/raw/master/ffmpeg_nvenc/${sdk_basename}.tgz"
     cd $source_dir
-    wget $sdk_url
-    unzip "${sdk_basename}.zip"
-    cd $sdk_basename
-    cp -a Samples/common/inc/* $inc_dir
+    wget -c $sdk_url
+    tar -xvf "${sdk_basename}.tgz"
+    cp -a ${sdk_basename}/* $inc_dir
 }
 
 BuildYasm() {
@@ -160,7 +159,7 @@ BuildVpx() {
 BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
-    ffmpeg_version="3.1"
+    ffmpeg_version="3.2"
     if [ ! -f  ffmpeg-${ffmpeg_version}.tar.bz2 ]; then
         wget http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
     fi
