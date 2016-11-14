@@ -71,14 +71,13 @@ InstallDependenciesOpenSUSE() {
 
 InstallNvidiaSDK() {
     echo "Installing the NVidia Video SDK"
-    sdk_version="6.0.1"
+    sdk_version="7.0.1"
     sdk_basename="nvidia_video_sdk_${sdk_version}"
-    sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
+    sdk_url="https://github.com/jniltinho/oficinadotux/raw/master/ffmpeg_nvenc/${sdk_basename}.tgz"
     cd $source_dir
-    wget $sdk_url
-    unzip "${sdk_basename}.zip"
-    cd $sdk_basename
-    cp -a Samples/common/inc/* $inc_dir
+    wget -c $sdk_url
+    tar -xvf "${sdk_basename}.tgz"
+    cp -a ${sdk_basename}/* $inc_dir
 }
 
 BuildYasm() {
