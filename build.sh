@@ -75,7 +75,7 @@ InstallNvidiaSDK() {
     sdk_basename="nvidia_video_sdk_${sdk_version}"
     sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
     cd $source_dir
-    wget $sdk_url
+    wget -4 $sdk_url
     unzip "${sdk_basename}.zip"
     cd $sdk_basename
     cp -a Samples/common/inc/* $inc_dir
@@ -86,7 +86,7 @@ BuildYasm() {
     cd $source_dir
     yasm_version="1.3.0"
     yasm_basename="yasm-${yasm_version}"
-    wget http://www.tortall.net/projects/yasm/releases/${yasm_basename}.tar.gz
+    wget -4 http://www.tortall.net/projects/yasm/releases/${yasm_basename}.tar.gz
     tar xzf "${yasm_basename}.tar.gz"
     cd $yasm_basename
     ./configure --prefix="${build_dir}" --bindir="${bin_dir}"
@@ -97,7 +97,7 @@ BuildYasm() {
 BuildX264() {
     echo "Compiling libx264"
     cd $source_dir
-    wget http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
+    wget -4 http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
     tar xjf last_x264.tar.bz2
     cd x264-snapshot*
     ./configure --prefix="$build_dir" --bindir="$bin_dir" # --enable-static
@@ -108,7 +108,7 @@ BuildX264() {
 BuildFdkAac() {
     echo "Compiling libfdk-aac"
     cd $source_dir
-    wget -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
+    wget -4 -O fdk-aac.zip https://github.com/mstorsjo/fdk-aac/zipball/master
     unzip fdk-aac.zip
     cd mstorsjo-fdk-aac*
     autoreconf -fiv
@@ -122,7 +122,7 @@ BuildLame() {
     cd $source_dir
     lame_version="3.99.5"
     lame_basename="lame-${lame_version}"
-    wget "http://downloads.sourceforge.net/project/lame/lame/3.99/${lame_basename}.tar.gz"
+    wget -4 "http://downloads.sourceforge.net/project/lame/lame/3.99/${lame_basename}.tar.gz"
     tar xzf "${lame_basename}.tar.gz"
     cd $lame_basename
     ./configure --prefix="$build_dir" --enable-nasm # --disable-shared
@@ -135,7 +135,7 @@ BuildOpus() {
     cd $source_dir
     opus_version="1.1"
     opus_basename="opus-${opus_version}"
-    wget "http://downloads.xiph.org/releases/opus/${opus_basename}.tar.gz"
+    wget -4 "http://downloads.xiph.org/releases/opus/${opus_basename}.tar.gz"
     tar xzf "${opus_basename}.tar.gz"
     cd $opus_basename
     ./configure --prefix="$build_dir" # --disable-shared
@@ -149,7 +149,7 @@ BuildVpx() {
     vpx_version="1.5.0"
     vpx_basename="libvpx-${vpx_version}"
     vpx_url="http://storage.googleapis.com/downloads.webmproject.org/releases/webm/${vpx_basename}.tar.bz2"
-    wget $vpx_url
+    wget -4 $vpx_url
     tar xjf "${vpx_basename}.tar.bz2"
     cd $vpx_basename
     ./configure --prefix="$build_dir" --disable-examples --enable-shared --disable-static
@@ -162,7 +162,7 @@ BuildFFmpeg() {
     cd $source_dir
     ffmpeg_version="3.1"
     if [ ! -f  ffmpeg-${ffmpeg_version}.tar.bz2 ]; then
-        wget http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
+        wget -4 http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
     fi
     tar xjf ffmpeg-${ffmpeg_version}.tar.bz2
     cd ffmpeg-${ffmpeg_version}
