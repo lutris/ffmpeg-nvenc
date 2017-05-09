@@ -100,7 +100,7 @@ BuildX264() {
     wget -4 http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
     tar xjf last_x264.tar.bz2
     cd x264-snapshot*
-    ./configure --prefix="$build_dir" --bindir="$bin_dir" # --enable-static
+    ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-pic --enable-shared
     make -j${cpus}
     make install
 }
