@@ -52,7 +52,7 @@ InstallDependencies() {
         libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev \
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
-        pkg-config texi2html zlib1g-dev nasm cmake libcurl4-openssl-dev \
+        pkg-config texi2html zlib1g-dev cmake libcurl4-openssl-dev \
         libjack-jackd2-dev libxcomposite-dev x11proto-composite-dev \
         libx264-dev libgl1-mesa-dev libglu1-mesa-dev libasound2-dev \
         libpulse-dev libx11-dev libxext-dev libxfixes-dev \
@@ -65,7 +65,7 @@ InstallDependenciesOpenSUSE() {
    sudo zypper in -y autoconf automake libass-devel libfreetype6 libgpac-devel \
        libSDL-devel libtheora-devel libtool libva-devel libvdpau-devel libvorbis-devel \
        libxcb-devel pkg-config libxcb-shm0 libvlc5 vlc-devel xcb-util-devel \
-       libv4l-devel v4l-utils-devel-tools texi2html zlib-devel nasm cmake \
+       libv4l-devel v4l-utils-devel-tools texi2html zlib-devel cmake \
        libcurl-devel libfdk-aac1
 }
 
@@ -79,6 +79,19 @@ InstallNvidiaSDK() {
     unzip "${sdk_basename}.zip"
     cd $sdk_basename
     cp -a Samples/common/inc/* $inc_dir
+}
+
+BuildNasm() {
+    echo "Compiling nasm"
+    cd $source_dir
+    nasm_version="2.13.01"
+    nasm_basename="nasm-${nasm_version}"
+    wget -4 http://www.nasm.us/pub/nasm/releasebuilds/${nasm_version}/nasm-${nasm_version}.tar.gz
+    tar xzf "${nasm_basename}.tar.gz"
+    cd $nasm_basename
+    ./configure --prefix="${build_dir}" --bindir="${bin_dir}"
+    make -j${cpus}
+    make install
 }
 
 BuildYasm() {
@@ -257,6 +270,7 @@ if [ $1 ]; then
 else
     InstallDependencies
     InstallNvidiaSDK
+    BuildNasm
     BuildYasm
     BuildX264
     BuildFdkAac
