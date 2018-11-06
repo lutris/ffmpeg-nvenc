@@ -48,7 +48,7 @@ export PATH=$bin_dir:$PATH
 
 InstallDependencies() {
     echo "Installing dependencies"
-    sudo apt-get -y --force-yes install git autoconf automake build-essential libass-dev \
+    sudo apt-get -y install git autoconf automake build-essential libass-dev \
         libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev \
         libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev \
         libqt5x11extras5-dev libxcb-xinerama0-dev libvlc-dev libv4l-dev   \
