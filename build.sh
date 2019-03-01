@@ -71,14 +71,15 @@ InstallDependenciesOpenSUSE() {
 
 InstallNvidiaSDK() {
     echo "Installing the NVidia Video SDK"
-    sdk_version="6.0.1"
-    sdk_basename="nvidia_video_sdk_${sdk_version}"
-    sdk_url="http://developer.download.nvidia.com/assets/cuda/files/${sdk_basename}.zip"
-    cd $source_dir
-    wget -4 $sdk_url
+    sdk_version="9.0.20"
+    sdk_basename="Video_Codec_SDK_${sdk_version}"
+    cd "$source_dir"
+    if [ ! -f "${sdk_basename}.zip" ]; then
+        echo "Please download ${sdk_basename} from the NVidia website and place it the source folder"
+    fi
     unzip "${sdk_basename}.zip"
     cd $sdk_basename
-    cp -a Samples/common/inc/* $inc_dir
+    cp -a Samples/NvCodec/NvEncoder/* "$inc_dir"
 }
 
 BuildNasm() {
