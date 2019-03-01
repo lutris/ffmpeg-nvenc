@@ -84,7 +84,7 @@ InstallNvidiaSDK() {
 BuildNasm() {
     echo "Compiling nasm"
     cd $source_dir
-    nasm_version="2.13.01"
+    nasm_version="2.14.02"
     nasm_basename="nasm-${nasm_version}"
     wget -4 http://www.nasm.us/pub/nasm/releasebuilds/${nasm_version}/nasm-${nasm_version}.tar.gz
     tar xzf "${nasm_basename}.tar.gz"
