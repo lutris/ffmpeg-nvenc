@@ -173,7 +173,7 @@ BuildVpx() {
 BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
-    ffmpeg_version="3.1"
+    ffmpeg_version="4.1.1"
     if [ ! -f  ffmpeg-${ffmpeg_version}.tar.bz2 ]; then
         wget -4 http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
     fi
@@ -202,11 +202,97 @@ BuildFFmpeg() {
         --enable-shared
     make -j${cpus}
     make install
+
+    # Below is the configuration of ffmpeg as provided in Ubuntu 18.10
+
+    # ffmpeg version 4.0.2-2 Copyright (c) 2000-2018 the FFmpeg developers
+    #   built with gcc 8 (Ubuntu 8.2.0-7ubuntu1)
+    #   configuration: --prefix=/usr 
+    #                  --extra-version=2 
+    #                  --toolchain=hardened 
+    #                  --libdir=/usr/lib/x86_64-linux-gnu 
+    #                  --incdir=/usr/include/x86_64-linux-gnu 
+    #                  --arch=amd64 
+    #                  --enable-gpl 
+    #                  --disable-stripping 
+    #                  --enable-avresample 
+    #                  --disable-filter=resample 
+    #                  --enable-avisynth 
+    #                  --enable-gnutls 
+    #                  --enable-ladspa 
+    #                  --enable-libaom 
+    #                  --enable-libass 
+    #                  --enable-libbluray 
+    #                  --enable-libbs2b 
+    #                  --enable-libcaca 
+    #                  --enable-libcdio 
+    #                  --enable-libcodec2 
+    #                  --enable-libflite 
+    #                  --enable-libfontconfig 
+    #                  --enable-libfreetype
+    #                  --enable-libfribidi
+    #                  --enable-libgme 
+    #                  --enable-libgsm 
+    #                  --enable-libjack 
+    #                  --enable-libmp3lame 
+    #                  --enable-libmysofa 
+    #                  --enable-libopenjpeg 
+    #                  --enable-libopenmpt 
+    #                  --enable-libopus 
+    #                  --enable-libpulse 
+    #                  --enable-librsvg 
+    #                  --enable-librubberband 
+    #                  --enable-libshine 
+    #                  --enable-libsnappy 
+    #                  --enable-libsoxr 
+    #                  --enable-libspeex 
+    #                  --enable-libssh 
+    #                  --enable-libtheora 
+    #                  --enable-libtwolame 
+    #                  --enable-libvorbis 
+    #                  --enable-libvpx 
+    #                  --enable-libwavpack 
+    #                  --enable-libwebp 
+    #                  --enable-libx265 
+    #                  --enable-libxml2 
+    #                  --enable-libxvid 
+    #                  --enable-libzmq 
+    #                  --enable-libzvbi 
+    #                  --enable-lv2 
+    #                  --enable-omx 
+    #                  --enable-openal
+    #                  --enable-opengl
+    #                  --enable-sdl2
+    #                  --enable-libdc1394
+    #                  --enable-libdrm
+    #                  --enable-libiec61883
+    #                  --enable-chromaprint
+    #                  --enable-frei0r
+    #                  --enable-libopencv
+    #                  --enable-libx264
+    #                  --enable-shared
+    #   libavutil      56. 14.100 / 56. 14.100
+    #   libavcodec     58. 18.100 / 58. 18.100
+    #   libavformat    58. 12.100 / 58. 12.100
+    #   libavdevice    58.  3.100 / 58.  3.100
+    #   libavfilter     7. 16.100 /  7. 16.100
+    #   libavresample   4.  0.  0 /  4.  0.  0
+    #   libswscale      5.  1.100 /  5.  1.100
+    #   libswresample   3.  1.100 /  3.  1.100
+    #   libpostproc    55.  1.100 / 55.  1.100
+
+    --prefix=/usr --extra-version=2 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+
 }
 
 BuildOBS() {
     cd $source_dir
-    export FFmpegPath="${source_dir}/ffmpeg"
+    if [ -f $source_dir/ffmpeg ]; then
+        export FFmpegPath="${source_dir}/ffmpeg"
+    else
+        echo "FFmpegPath not set, using default FFmpeg"
+    fi
+
     if [ -d obs-studio ]; then
         cd obs-studio
         git pull
@@ -229,6 +315,7 @@ MakeScripts() {
     cd $build_dir
     mkdir -p scripts
     cd scripts
+    echo "Creating launcher script for FFmpeg"
     cat <<EOF > ffmpeg.sh
 #!/bin/bash
 export LD_LIBRARY_PATH="${build_dir}/lib":\$LD_LIBRARY_PATH
@@ -238,6 +325,7 @@ EOF
     chmod +x ffmpeg.sh
 
     if [ "$build_obs" ]; then
+        echo "Creating launcher script for OBS"
         cat <<EOF > obs.sh
 #!/bin/bash
 export LD_LIBRARY_PATH="${build_dir}/lib":\$LD_LIBRARY_PATH
