@@ -82,6 +82,14 @@ InstallNvidiaSDK() {
     cp -a Samples/NvCodec/NvEncoder/* "$inc_dir"
 }
 
+InstallNvCodecIncludes() {
+    echo "Installing Nv codec headers from https://github.com/FFmpeg/nv-codec-headers"
+    cd "$source_dir"
+    git clone https://github.com/FFmpeg/nv-codec-headers
+    cd nv-codec-headers
+    cp -a include/ffnvcodec "$inc_dir"
+}
+
 BuildNasm() {
     echo "Compiling nasm"
     cd $source_dir
@@ -358,7 +366,7 @@ if [ $1 ]; then
     $1
 else
     InstallDependencies
-    InstallNvidiaSDK
+    InstallNvCodecIncludes
     BuildNasm
     BuildYasm
     BuildX264
