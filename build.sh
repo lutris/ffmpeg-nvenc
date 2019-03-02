@@ -294,8 +294,8 @@ BuildFFmpeg() {
 
 BuildOBS() {
     cd $source_dir
-    if [ -f $source_dir/ffmpeg ]; then
-        export FFmpegPath="${source_dir}/ffmpeg"
+    if [ -f $build_dir/bin/ffmpeg ]; then
+        export FFmpegPath="${build_dir}/bin/ffmpeg"
     else
         echo "FFmpegPath not set, using default FFmpeg"
     fi
