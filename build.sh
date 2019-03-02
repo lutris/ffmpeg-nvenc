@@ -304,7 +304,7 @@ BuildOBS() {
         cd obs-studio
         git pull
     else
-        git clone https://github.com/jp9000/obs-studio.git
+        git clone https://github.com/obsproject/obs-studio
         cd obs-studio
     fi
     mkdir -p build
