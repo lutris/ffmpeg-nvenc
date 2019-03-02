@@ -193,6 +193,7 @@ BuildFFmpeg() {
         --extra-cflags="-fPIC -m64 -I${inc_dir}" \
         --extra-ldflags="-L${build_dir}/lib" \
         --bindir="$bin_dir" \
+        --incdir="$inc_dir" \
         --enable-gpl \
         --enable-libass \
         --enable-libfdk-aac \
