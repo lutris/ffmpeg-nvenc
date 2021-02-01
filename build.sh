@@ -83,10 +83,12 @@ InstallNvidiaSDK() {
 }
 
 InstallNvCodecIncludes() {
-    echo "Installing Nv codec headers from https://github.com/FFmpeg/nv-codec-headers"
+    echo "Installing Nv codec headers"
     cd "$source_dir"
-    git clone https://github.com/FFmpeg/nv-codec-headers
+    git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
     cd nv-codec-headers
+    make
+    sudo make install
     cp -a include/ffnvcodec "$inc_dir"
 }
 
@@ -119,9 +121,8 @@ BuildYasm() {
 BuildX264() {
     echo "Compiling libx264"
     cd $source_dir
-    wget -4 http://download.videolan.org/pub/x264/snapshots/last_x264.tar.bz2
-    tar xjf last_x264.tar.bz2
-    cd x264-snapshot*
+    git clone https://code.videolan.org/videolan/x264/
+    cd x264
     ./configure --prefix="$build_dir" --bindir="$bin_dir" --enable-pic --enable-shared
     make -j${cpus}
     make install
@@ -182,7 +183,7 @@ BuildVpx() {
 BuildFFmpeg() {
     echo "Compiling ffmpeg"
     cd $source_dir
-    ffmpeg_version="4.1.1"
+    ffmpeg_version="4.3.1"
     if [ ! -f  ffmpeg-${ffmpeg_version}.tar.bz2 ]; then
         wget -4 http://ffmpeg.org/releases/ffmpeg-${ffmpeg_version}.tar.bz2
     fi
